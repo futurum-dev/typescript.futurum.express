@@ -1,0 +1,26 @@
+{
+  "entryFile": "src/application.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/**/*-controller.ts",
+    "src/**/*-endpoint.ts"
+  ],
+  "spec": {
+    "outputDirectory": "./build",
+    "specVersion": 3,
+    "title": "typescript.futurum.express",
+    "version": "1.0.0",
+    "description": "typescript.futurum.express",
+    "externalDocs": {
+      "description": "swagger.json",
+      "url": "/swagger.json"
+    },
+    "operationIdTemplate": "{{titleCase controllerName}}_{{titleCase method.name}}",
+    "basePath": "/api/v1/"
+  },
+  "routes": {
+    "routesDir": "build",
+    "iocModule": "src/core/ioc/ioc",
+    "basePath": "/api/v1/"
+  }
+}

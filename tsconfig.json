@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": [
+      "es6"
+    ],
+    "types": [
+      "reflect-metadata",
+      "@types/jest"
+    ],
+    "module": "commonjs",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "outDir": "./build",
+    "baseUrl": ".",
+    "paths": {
+      "tsoa": ["node_modules/tsoa/dist"],
+      "tsoa/": ["node_modules/tsoa/dist/"],
+      "@/core/*": [
+        "src/core/*"
+      ],
+      "@/ioc/*": [
+        "src/core/ioc/*"
+      ],
+      "@/middleware/*": [
+        "src/core/middleware/*"
+      ],
+      "@/build/*": [
+        "build/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts"
+  ]
+}

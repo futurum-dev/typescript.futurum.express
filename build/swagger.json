@@ -1,0 +1,334 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"GreetingResponse": {
+				"properties": {
+					"message": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"message"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ProblemDocument": {
+				"properties": {
+					"detail": {
+						"type": "string"
+					},
+					"instance": {
+						"type": "string"
+					},
+					"status": {
+						"type": "number",
+						"format": "double"
+					},
+					"title": {
+						"type": "string"
+					},
+					"type": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"status",
+					"title"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"FileResponse": {
+				"properties": {
+					"fileName": {
+						"type": "string"
+					},
+					"fileContent": {
+						"type": "string"
+					}
+				},
+				"required": [
+					"fileName",
+					"fileContent"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UploadFileResponse": {
+				"properties": {
+					"fileResponse": {
+						"$ref": "#/components/schemas/FileResponse"
+					}
+				},
+				"required": [
+					"fileResponse"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UploadFilesResponse": {
+				"properties": {
+					"fileResponses": {
+						"items": {
+							"$ref": "#/components/schemas/FileResponse"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"fileResponses"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "typescript.futurum.express",
+		"version": "1.0.0",
+		"description": "typescript.futurum.express",
+		"contact": {}
+	},
+	"paths": {
+		"/greeting/hello/{name}": {
+			"get": {
+				"operationId": "GreetingEndpoint_HelloHandler",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GreetingResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/greeting/goodbye/{name}": {
+			"get": {
+				"operationId": "GreetingEndpoint_GoodbyeHandler",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/GreetingResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "name",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/file/download": {
+			"get": {
+				"operationId": "FileEndpoint_DownloadHandler",
+				"responses": {
+					"200": {
+						"description": "",
+						"content": {
+							"application/octet-stream": {
+								"schema": {
+									"type": "string",
+									"format": "byte"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/file/upload-file": {
+			"post": {
+				"operationId": "FileEndpoint_UploadFileHandler",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UploadFileResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"file": {
+										"type": "string",
+										"format": "binary"
+									}
+								},
+								"required": [
+									"file"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/file/upload-files": {
+			"post": {
+				"operationId": "FileEndpoint_UploadFilesHandler",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UploadFilesResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"multipart/form-data": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"files": {
+										"items": {
+											"type": "string",
+											"format": "binary"
+										},
+										"type": "array"
+									}
+								},
+								"required": [
+									"files"
+								]
+							}
+						}
+					}
+				}
+			}
+		},
+		"/error": {
+			"get": {
+				"operationId": "ErrorEndpoint_Handler",
+				"responses": {
+					"200": {
+						"description": ""
+					},
+					"500": {
+						"description": "",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ProblemDocument"
+								}
+							}
+						}
+					}
+				},
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api/v1"
+		}
+	]
+}
